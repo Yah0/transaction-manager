@@ -2,6 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const api_endpoints = require('../api');
 const app = express();
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'http://localhost:4200',
+}));
 
 app.use(express.static('public'));
 
