@@ -1,8 +1,9 @@
 <form {{on "submit" (fn this.submitTransaction this.accountId this.amount)}}>
-    <div>
-        <label for="account-id">Account ID:</label>
-        <Input id="account-id" data-type="account-id" @value={{this.accountId}} />
-    </div>
+      <div>
+    <label for="account-id">Account ID:</label>
+    <Input id="account-id" data-type="account-id" @value={{this.accountId}} />
+    <button type="button" {{on "click" this.generateUUID}}>Generate UUID</button>
+  </div>
     <div>
         <label for="amount">Amount:</label>
         <Input id="amount" data-type="amount" @value={{this.amount}} />
