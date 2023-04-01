@@ -78,14 +78,14 @@ router.get('/transactions/:transactionId', (req, res) => {
   }
 
   // Find the transaction with the given ID
-  const transaction = transactions.find(t => t.id === transactionId);
+  const transaction = transactions.find(t => t.transaction_id === transactionId);
 
   if (!transaction) {
     return res.status(404).json({ message: 'Transaction not found' });
   }
 
   res.status(200).json(transaction);
-})
+});
 
 router.get('/accounts/:accountId', (req, res) => {
   const { accountId } = req.params;
