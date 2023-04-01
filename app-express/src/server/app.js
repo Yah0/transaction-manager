@@ -8,8 +8,6 @@ app.use(cors({
   origin: 'http://localhost:4200',
 }));
 
-app.use(express.static('public'));
-
 app.use(bodyParser.json());
 
 app.use('/', does_method_exist, api_endpoints);
