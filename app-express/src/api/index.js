@@ -1,20 +1,32 @@
 const express = require("express");
 const router = express.Router();
 const validator = require('validator');
+const uuid = require("uuid");
 const { v4: uuidv4 } = require('uuid');
+const moment = require("moment");
 
 const transactions = [];
 const accounts = [];
 
 // Generate 5 accounts with unique ids and balance of 0
 for (let i = 0; i < 5; i++) {
-  const id = uuidv4();
-  const account = {
-    id,
-    balance: 0,
-  };
-  accounts.push(account);
-  console.log(accounts)
+  const accountId = uuid.v4();
+  accounts.push({ id: accountId, balance: 0 });
+
+  let amount = 0;
+  while (amount === 0) {
+    amount = Math.floor(Math.random() * 21) - 10;
+  }
+
+  const transactionId = uuid.v4();
+  const createdAt = moment().toISOString();
+
+  transactions.push({
+    transaction_id: transactionId,
+    account_id: accountId,
+    amount: amount,
+    created_at: createdAt,
+  });
 }
 
 router.get("/ping", (req, res) => {
@@ -35,9 +47,10 @@ router.post('/transactions', (req, res) => {
 
   // create a new transaction object
   const newTransaction = {
-    id: uuidv4(), // generate a unique id for the transaction
+    transaction_id: uuidv4(), // generate a unique id for the transaction
     account_id,
     amount,
+    created_at: moment().toISOString(),
   };
 
   // add the transaction to the array
@@ -47,9 +60,15 @@ router.post('/transactions', (req, res) => {
 });
 
 router.get('/transactions', (req, res) => {
-  res.send("GET transactions")
-  // res.send(req.params)
-})
+  const transactionsArr = transactions.map((transaction) => ({
+    transaction_id: transaction.transaction_id,
+    account_id: transaction.account_id,
+    amount: transaction.amount,
+    created_at: transaction.created_at,
+  }));
+
+  res.json(transactionsArr);
+});
 
 router.get('/transactions/:transactionId', (req, res) => {
   const { transactionId } = req.params;
