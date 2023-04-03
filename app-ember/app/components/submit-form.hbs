@@ -1,14 +1,14 @@
-<form {{on "submit" (fn this.submitTransaction this.accountId this.amount)}}>
-      <div>
-    <label for="account-id">Account ID:</label>
-    <Input id="account-id" data-type="account-id" @value={{this.accountId}} />
-    <button type="button" {{on "click" this.generateUUID}}>Generate UUID</button>
-  </div>
+<form >
     <div>
-        <label for="amount">Amount:</label>
-        <Input id="amount" data-type="amount" @value={{this.amount}} />
+        <label for="account-id">Account ID:</label>
+        <Input id="account-id" data-type="account-id" @value={{this.accountId}} />
+        <button type="button" {{on "click" this.generateRandomUUID}}>Generate UUID</button>
     </div>
     <div>
-        <button data-type="transaction-submit" type="submit">Submit</button>
+        <label for="amount">Amount:</label>
+        <Input id="amount" data-type="amount" @type="number" min="0" step="0.01" @value={{this.amount}} />
+    </div>
+    <div>
+        <button data-type="transaction-submit" type="button" {{on "click" this.onSubmit}}>Submit</button>
     </div>
 </form>
