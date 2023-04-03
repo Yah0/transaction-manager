@@ -1,33 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const validator = require('validator');
-const uuid = require("uuid");
 const { v4: uuidv4 } = require('uuid');
 const moment = require("moment");
 
 const transactions = [];
 const accounts = [];
-
-// Generate 5 accounts with unique ids and balance of 0
-for (let i = 0; i < 5; i++) {
-  const accountId = uuid.v4();
-  accounts.push({ id: accountId, balance: 0 });
-
-  let amount = 0;
-  while (amount === 0) {
-    amount = Math.floor(Math.random() * 21) - 10;
-  }
-
-  const transactionId = uuid.v4();
-  const createdAt = moment().toISOString();
-
-  transactions.push({
-    transaction_id: transactionId,
-    account_id: accountId,
-    amount: amount,
-    created_at: createdAt,
-  });
-}
 
 router.get("/ping", (req, res) => {
   res.send("pong")
@@ -36,27 +14,37 @@ router.get("/ping", (req, res) => {
 router.post('/transactions', (req, res) => {
   const { account_id, amount } = req.body;
 
-  // check if the account exists
-  const account = accounts.find((a) => a.id === account_id);
-  if (!account) {
-    return res.status(404).json({ message: "Account not found" });
-  }
+// Parse the amount to a number
+const parsedAmount = Number(amount);
 
-  // update the account balance
-  account.balance += amount;
+// Check if the parsed amount is a valid number
+if (isNaN(parsedAmount) || parsedAmount === 0) {
+  return res.status(400).json({ message: 'Invalid amount' });
+}
 
-  // create a new transaction object
-  const newTransaction = {
-    transaction_id: uuidv4(), // generate a unique id for the transaction
-    account_id,
-    amount,
-    created_at: moment().toISOString(),
-  };
+// find the account
+const account = accounts.find((account) => account.account_id === account_id);
 
-  // add the transaction to the array
-  transactions.push(newTransaction);
+if (!account) {
+  // create a new account with the balance from the request
+  accounts.push({ account_id, balance: parsedAmount });
+} else {
+  // update the balance of the existing account
+  account.balance += parsedAmount;
+}
 
-  res.status(200).json({ message: "Transaction successful" });
+// create a new transaction object
+const newTransaction = {
+  transaction_id: uuidv4(), // generate a unique id for the transaction
+  account_id,
+  amount: parsedAmount,
+  created_at: moment().toISOString(),
+};
+
+// add the transaction to the array
+transactions.push(newTransaction);
+
+res.status(200).json(newTransaction);
 });
 
 router.get('/transactions', (req, res) => {
@@ -94,7 +82,7 @@ router.get('/accounts/:accountId', (req, res) => {
   }
 
  // Find the account with the given ID
- const account = accounts.find(a => a.id === accountId);
+ const account = accounts.find(a => a.account_id === accountId);
 
  if (!account) {
    return res.status(404).json({ message: 'Account not found' });
