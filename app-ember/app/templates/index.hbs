@@ -8,12 +8,11 @@
   <div class="transaction-history-container">
     <h2>Transaction history</h2>
     <div class="transaction-history">
-      <div>
-        <Deposits />
-      </div>
-      <div>
-        <Withdrawals />
-      </div>
+      {{#each this.model as |transaction|}}
+        <div>
+          <TransactionTile @transaction={{transaction}} />
+        </div>
+      {{/each}}
     </div>
   </div>
 </div>
