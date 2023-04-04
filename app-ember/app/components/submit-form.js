@@ -26,11 +26,6 @@ export default class SubmitFormComponent extends Component {
     const accountId = this.accountId;
     const amount = this.amount;
 
-    let account = this.store.peekRecord('account', accountId);
-    if (account) {
-      account.balance += amount;
-    }
-
     // Create a new submitted-transaction record
     let submittedTransaction = this.store.createRecord('transaction', {
       account_id: accountId,
