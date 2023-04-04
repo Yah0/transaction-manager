@@ -1,4 +1,9 @@
-<div>
+<div 
+  data-type="transaction"
+  data-account-id={{this.accountId}}
+  data-amount={{this.amount}}
+  data-balance={{this.account.balance}}
+>
   <h3>{{this.transactionType}}</h3>
   <p>Amount: {{this.amount}}</p>
   <p>Account ID: {{this.accountId}}</p>
