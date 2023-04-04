@@ -1,14 +1,13 @@
-<form >
-    <div>
+<form>
+    <div class="input-container">
         <label for="account-id">Account ID:</label>
         <Input id="account-id" data-type="account-id" @value={{this.accountId}} />
-        
     </div>
-    <div>
+    <div class="input-container">
         <label for="amount">Amount:</label>
-        <Input id="amount" data-type="amount" @type="number" min="0" step="0.01" inputmode="numeric" pattern="[0-9]*" @value={{this.amount}} />
+        <Input id="amount" data-type="amount" min="0" inputmode="numeric" pattern="[0-9]*" @value={{this.amount}} />
     </div>
-    <div>
+    <div class="input-container">
         <button data-type="transaction-submit" type="button" {{on "click" this.onSubmit}}>Submit</button>
         <button type="button" {{on "click" this.generateRandomUUID}}>Generate UUID</button>
     </div>
