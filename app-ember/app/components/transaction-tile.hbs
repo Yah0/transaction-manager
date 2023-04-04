@@ -2,5 +2,7 @@
   <h3>{{this.transactionType}}</h3>
   <p>Amount: {{this.amount}}</p>
   <p>Account ID: {{this.accountId}}</p>
-  <p>Balance: {{this.account.balance}}</p>
+  {{#if this.isFirstTransaction}}
+    <p>Balance: {{this.account.balance}}</p>
+  {{/if}}
 </div>

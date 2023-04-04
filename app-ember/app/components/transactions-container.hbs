@@ -1,5 +1,5 @@
 {{#each this.sortedTransactions as |transaction|}}
     {{#if transaction.id}}
-        <TransactionTile @transaction={{transaction}} @model={{@model}} />
+        <TransactionTile @transaction={{transaction}} @sortedTransactions={{this.sortedTransactions}} />
     {{/if}}
 {{/each}}
