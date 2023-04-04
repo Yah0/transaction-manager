@@ -30,7 +30,7 @@ if (!account) {
   accounts.push({ account_id, balance: parsedAmount });
 } else {
   // update the balance of the existing account
-  account.balance += parsedAmount;
+  account.balance = account.balance + parsedAmount;
 }
 
 // create a new transaction object
