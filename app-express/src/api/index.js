@@ -14,37 +14,46 @@ router.get("/ping", (req, res) => {
 router.post('/transactions', (req, res) => {
   const { account_id, amount } = req.body;
 
-// Parse the amount to a number
-const parsedAmount = Number(amount);
+  // Parse the amount to a number
+  const parsedAmount = Number(amount);
 
-// Check if the parsed amount is a valid number
-if (isNaN(parsedAmount) || parsedAmount === 0) {
-  return res.status(400).json({ message: 'Invalid amount' });
-}
+  if (!account_id || typeof account_id !== 'string' || !amount || typeof parsedAmount !== 'number') {
+    return res.status(400).json({ message: 'Mandatory body parameters missing or have incorrect type.' });
+  }
 
-// find the account
-const account = accounts.find((account) => account.account_id === account_id);
+  // Check if the HTTP method is allowed
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Specified HTTP method not allowed.' });
+  }
 
-if (!account) {
-  // create a new account with the balance from the request
-  accounts.push({ account_id, balance: parsedAmount });
-} else {
-  // update the balance of the existing account
-  account.balance = account.balance + parsedAmount;
-}
+  // Check if the content type is allowed
+  if (!req.is('json')) {
+    return res.status(415).json({ message: 'Specified content type not allowed.' });
+  }
 
-// create a new transaction object
-const newTransaction = {
-  transaction_id: uuidv4(), // generate a unique id for the transaction
-  account_id,
-  amount: parsedAmount,
-  created_at: moment().toISOString(),
-};
+  // find the account
+  const account = accounts.find((account) => account.account_id === account_id);
 
-// add the transaction to the array
-transactions.push(newTransaction);
+  if (!account) {
+    // create a new account with the balance from the request
+    accounts.push({ account_id, balance: parsedAmount });
+  } else {
+    // update the balance of the existing account
+    account.balance = account.balance + parsedAmount;
+  }
 
-res.status(200).json(newTransaction);
+  // create a new transaction object
+  const newTransaction = {
+    transaction_id: uuidv4(), // generate a unique id for the transaction
+    account_id,
+    amount: parsedAmount,
+    created_at: moment().toISOString(),
+  };
+
+  // add the transaction to the array
+  transactions.push(newTransaction);
+
+  res.status(201).json(newTransaction);
 });
 
 router.get('/transactions', (req, res) => {
@@ -55,7 +64,7 @@ router.get('/transactions', (req, res) => {
     created_at: transaction.created_at,
   }));
 
-  res.json(transactionsArr);
+  res.status(200).json(transactionsArr);
 });
 
 router.get('/transactions/:transactionId', (req, res) => {
@@ -81,14 +90,14 @@ router.get('/accounts/:accountId', (req, res) => {
     return res.status(400).json({ message: "account_id missing or has incorrect type" });
   }
 
- // Find the account with the given ID
- const account = accounts.find(a => a.account_id === accountId);
+  // Find the account with the given ID
+  const account = accounts.find(a => a.account_id === accountId);
 
- if (!account) {
-   return res.status(404).json({ message: 'Account not found' });
- }
+  if (!account) {
+    return res.status(404).json({ message: 'Account not found' });
+  }
 
- res.status(200).json(account);
+  res.status(200).json(account);
 })
 
 
