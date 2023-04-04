@@ -1,14 +1,10 @@
 <div class="transaction-container">
-  <div class="transaction-form-container">
+  <div class="transaction-form">
     <h2>Submit new transaction</h2>
-    <div class="transaction-form">
-      <SubmitForm />
-    </div>
+    <SubmitForm />
   </div>
-  <div class="transaction-history-container">
+  <div class="transaction-history">
     <h2>Transaction history</h2>
-    <div class="transaction-history">
-      <TransactionsContainer @transactions={{@model}} />
-    </div>
+    <TransactionsContainer @transactions={{@model}} />
   </div>
 </div>
