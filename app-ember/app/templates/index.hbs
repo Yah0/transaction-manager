@@ -8,11 +8,7 @@
   <div class="transaction-history-container">
     <h2>Transaction history</h2>
     <div class="transaction-history">
-      {{#each this.model as |transaction|}}
-        <div>
-          <TransactionTile @transaction={{transaction}} />
-        </div>
-      {{/each}}
+      <TransactionsContainer @transactions={{@model}} />
     </div>
   </div>
 </div>
