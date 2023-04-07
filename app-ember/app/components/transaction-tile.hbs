@@ -3,11 +3,11 @@
   data-account-id={{this.accountId}}
   data-amount={{this.amount}}
   data-balance={{this.account.balance}}
+  style={{if this.isDeposit "border-color:green" "border-color:red"}}
 >
   <h3>{{this.transactionType}}</h3>
-  <p>Amount: {{this.amount}}</p>
-  <p>Account ID: {{this.accountId}}</p>
+  <p>Transferred <b><i>{{if this.amount (concat this.amount '$')}}</i></b> from account <b><i>{{this.accountId}}</i></b>.</p>
   {{#if this.isFirstTransaction}}
-    <p>Balance: {{this.account.balance}}</p>
+    <p>The current account balance is <b><i>{{if this.account.balance (concat this.account.balance '$')}}</i></b>.</p>
   {{/if}}
 </div>

@@ -43,7 +43,8 @@ body {
 .transaction-history div {
   margin-bottom: 1rem;
   padding: 1rem;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
 }
 
 .input-container {

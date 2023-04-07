@@ -25,7 +25,9 @@ export default class TransactionTileComponent extends Component {
   }
 
   get isFirstTransaction() {
-    const transactions = this.args.sortedTransactions.filter(t => t.account_id === this.accountId);
+    const transactions = this.args.sortedTransactions.filter(
+      (t) => t.account_id === this.accountId
+    );
     if (transactions.length === 0) {
       return false;
     }

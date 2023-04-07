@@ -8,11 +8,10 @@
         <Input id="amount" data-type="amount" @type="number" @value={{this.amount}} />
     </div>
     <div class="input-container">
-        <button data-test-submit-form data-type="transaction-submit" type="button" {{on "click"
-            this.onSubmit}}>Submit</button>
+        <button data-test-submit-form data-type="transaction-submit" type="button" {{on "click" this.onSubmit}}>Submit</button>
         <button data-test-generate-uuid type="button" {{on "click" this.generateRandomUUID}}>Generate UUID</button>
     </div>
     {{#if this.error}}
-        <div class="error-container">{{this.error}}</div>
+    <div class="error-container">{{this.error}}</div>
     {{/if}}
 </form>
