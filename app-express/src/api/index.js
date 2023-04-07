@@ -17,8 +17,12 @@ router.post('/transactions', (req, res) => {
   // Parse the amount to a number
   const parsedAmount = Number(amount);
 
-  if (!account_id || typeof account_id !== 'string' || !amount || typeof parsedAmount !== 'number') {
-    return res.status(400).json({ message: 'Mandatory body parameters missing or have incorrect type.' });
+  if (!account_id || typeof account_id !== 'string') {
+    return res.status(400).json({ errors: ["account_id must be a valid UUID v4"] });
+  }
+
+  if (!amount || typeof parsedAmount !== 'number') {
+    return res.status(400).json({ errors: ["Amount must be a number, and not 0"] });
   }
 
   // Check if the HTTP method is allowed
