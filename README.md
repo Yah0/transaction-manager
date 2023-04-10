@@ -1,100 +1,63 @@
-# Transaction Management Fullstack - Level 1
+# transactions-manager
 
-Your task is to build a fullstack app that allows to record financial transactions and view the transaction history.
+The purpose of the app is to produce the list of the transactions made during one app session.
+## TODO in the upcoming versions
 
-Please agree with your hiring team regarding the tech stack choice.
+* Implement Sinon.JS to stub data in tests. (I ran into issues when installing the dependency. It is probably due to Ember version 4.11. Maybe changing the Ember.JS version will be helpful.)
+* Implement Mirage.JS to run FE tests even when the server is down.
+* Follow a11y guidelines to make the app accessible.
+* Make the app readable on mobile screen sizes.
+* Implement database.
+* Make the app SEO-friendly.
+## Technical Choices
 
-The backend should implement the [Accounting API](https://infra.devskills.app/accounting/api/3.1.0).
+* I used the newest stable version of Ember.JS.
+* I am not using any CSS pre-compiler because the styling is not currently complicated. There is no need to add another library at this point.
+* For Backend I used Express.js cause it's based no JS.
 
-The frontend should consist of a form for submitting transactions and a transaction list.
+## API documentation
 
-Transaction list displays the withdrawn or deposited amount for each transaction along with the affected account id. It also shows the current balance for the last submitted transaction.
+API documentation is under this link [Accounting API](https://infra.devskills.app/accounting/api/3.1.0).
+## Prerequisites
 
-Here's the UI mockup with hints:
+You will need the following things properly installed on your computer.
 
-![Accounting App Frontend](https://user-images.githubusercontent.com/450319/139797772-4e4b2744-447c-411f-9b04-7028ba5e89a1.png)
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/) (with npm)
+* [Ember CLI](https://cli.emberjs.com/release/)
 
-Feel free to tweak the UI, but please ensure that the following HTML is in place.
-
-#### The form for submitting transactions
-
-```html
-<form ... >
-  <input data-type="account-id" ... />
-  <input data-type="amount" ... />
-  <input data-type="transaction-submit" type="submit" ... />
-</form>
-```
-
-Both input **fields should be cleared** after the form is submitted.
-
-#### Transaction list
-
-Every new transaction goes on **the top of the list** and should have an enclosing `<div />` with the following structure:
-
-```html
-<div 
-     data-type="transaction"
-     data-account-id="${transaction-account-id}"
-     data-amount="${transaction-amount}"
-     data-balance="${current-account-balance}" ...>
-  ...
-</div>
-```
-
-- `${transaction-account-id}` - account id of the corresponding transaction.
-- `${transaction-amount}` - transaction amount.
-- `${current-account-balance}` - the current account balance right after submitting the transaction (only show for the last submitted transaction).
-
-## Before you get started
-
-### If you run into a problem
-
-Need help? Head over to [our community on GitHub](https://github.com/orgs/DevSkillsHQ/discussions/categories/help) to get assistance.
-
-### Import boilerplate
-
-Follow [this link](https://docs.devskills.co/collections/85-the-interview-process/articles/342-importing-challenge-boilerplate) to get the boilerplate code for your tech stack to configure a minimal setup for running the E2E tests.
-
-<details>
-<summary>Alternatively, use the manual setup.</summary>
-
-1. Update the `baseUrl` (where your frontend runs) in [cypress.json](cypress.json).
-2. Update the `apiUrl` (where your backend runs) in [cypress.json](cypress.json).
-3. Update the [`build`](package.json#L5) and [`start`](package.json#L6) scripts in [package.json](package.json) to respectively build and start your app.
-
-</details>
-
-### Get familiar with the API
-
-Follow [this link](https://infra.devskills.app/transaction-management/api/3.1.0) to find the API documentation. Feel free to try out a few requests to better understand how the API should work.
-
-### Try running the E2E tests locally
+## Installation
 
 ```bash
 npm install
-npm run build # should build your fullstack app
-npm run start # should start your fullstack app
-npm run test
+npm run build # builds the app
+npm run start # starts the app
+npm run test # starts E2E tests
 ```
 
-## What we expect from you
+## Running Development
 
-1. Make the provided E2E tests pass.
-2. Keep server data in memory.
-3. Push your code to the new `implementation` branch. We encourage you to commit and push your changes regularly as it's a good way for you to showcase your thinking process.
-4. Create a new pull request, but please **do not merge it**.
-5. Document the tech decisions you've made by creating a new review on your PR ([see how](https://www.loom.com/share/94ae305e7fbf45d592099ac9f40d4274)).
-6. Await further instructions from the hiring team.
+* `npm run start-dev`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
+* Vist backend at [http://localhost:5000](http://localhost:5000)
 
-## Time estimate
+## Running Production
 
-**1-3 hours** depending on your experience level + the time to set up the project/environment (go with one of the provided boilerplates to move faster).
+* `npm run start`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
+* Vist backend at [http://localhost:5000](http://localhost:5000)
 
-Also, there is no countdown. The estimate is for you to plan your time.
+### Running Tests
 
----
+* E2E tests `npm run test` at root
+* Frontend tests `ember test` at /app-ember
+* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
-Made by [DevSkills](https://devskills.co).
+## Useful Links
 
-How was your experience? **[Don't hesitate to give us a shout](https://github.com/orgs/DevSkillsHQ/discussions/categories/feedback)**.
+* [Ember Data](https://guides.emberjs.com/release/models/)
+* [ember.js](https://emberjs.com/)
+* [ember-cli](https://cli.emberjs.com/release/)
+* [Cypress](https://www.cypress.io/)
+* [Mirage.js](https://miragejs.com/)
+* [Sinon.js](https://sinonjs.org/)
