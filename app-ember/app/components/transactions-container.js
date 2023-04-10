@@ -4,6 +4,6 @@ export default class TransactionsContainerComponent extends Component {
   transactions = this.args.transactions;
 
   get sortedTransactions() {
-    return this.transactions.toArray().reverse();
+    return this.transactions.slice().reverse();
   }
 }
