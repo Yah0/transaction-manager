@@ -1,24 +1,24 @@
 import { module, test } from 'qunit';
-
-import { setupTest } from 'app-ember/tests/helpers';
+import { setupTest } from 'ember-qunit';
 
 module('Unit | Serializer | transaction', function (hooks) {
   setupTest(hooks);
 
-  // Replace this with your real tests.
-  test('it exists', function (assert) {
-    let store = this.owner.lookup('service:store');
-    let serializer = store.serializerFor('transaction');
+  test('serialize returns the correct JSON', function (assert) {
+    const serializer = this.owner.lookup('serializer:transaction');
+    const snapshot = {
+      attr(key) {
+        return this[key];
+      },
+      account_id: 1,
+      amount: 100,
+    };
+    const expectedJson = {
+      account_id: 1,
+      amount: 100,
+    };
+    const actualJson = serializer.serialize(snapshot);
 
-    assert.ok(serializer);
-  });
-
-  test('it serializes records', function (assert) {
-    let store = this.owner.lookup('service:store');
-    let record = store.createRecord('transaction', {});
-
-    let serializedRecord = record.serialize();
-
-    assert.ok(serializedRecord);
+    assert.deepEqual(actualJson, expectedJson, 'The generated JSON is correct');
   });
 });
